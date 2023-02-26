@@ -1,0 +1,22 @@
+version: '3'
+services:
+  model:
+    build:
+      context: ./models
+      dockerfile: Dockerfile
+  backend:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    depends_on:
+      - model
+  frontend:
+    build:
+      context: ./templates
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
