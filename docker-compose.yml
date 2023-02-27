@@ -1,0 +1,12 @@
+version: "4"
+
+services:
+  back:
+    build: ./back
+    image: moubina/anime:latest
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./back:/app/back
+      - ./templates:/app/templates
+      - ./models:/app/models
