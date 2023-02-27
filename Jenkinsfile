@@ -2,6 +2,12 @@ pipeline {
     agent any
     stages {
         
+        stage('---------------Check Branch------------------') {
+            steps {
+                bat 'echo BRANCH_NAME=$BRANCH_NAME'
+            }
+        }
+        
         stage('Build and Test Feature Branch') {
             when { branch 'origin/feature/*' }
             steps {
