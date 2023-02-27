@@ -3,7 +3,7 @@ pipeline {
     stages {
         
         stage('Build and Test Feature Branch') {
-            when { branch 'feature/*' }
+            when { branch 'origin/feature/*' }
             steps {
                 bat "echo '------------BUIIIIIILD FEATURE------------------'"
                 bat "echo 'Tests on feature branches'"
@@ -13,7 +13,7 @@ pipeline {
         }
 
         stage('Push to dev') {
-            when { branch 'feature/*' }
+            when { branch 'origin/feature/*' }
             steps {
                 bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
                 bat "echo 'Merging feature/ branch into dev'"
@@ -24,7 +24,7 @@ pipeline {
         }
         
         stage('Stress Test and Deploy from dev') {
-            when { branch '*/dev' }
+            when { branch 'origin/dev' }
             steps {
                 bat "echo '------------DEPLOY DEV-------------------'"
                 bat "echo 'Stress Tests to do on dev branch and deployement'"
@@ -37,7 +37,7 @@ pipeline {
         
         
         stage('Push to Main') {
-            when { branch 'dev' }
+            when { branch 'origin/dev' }
             steps {
                 bat "echo '------------PUSH TO MAIN-------------------'"
                 bat "echo 'Asking the permission to merge'"
@@ -55,9 +55,9 @@ pipeline {
         stage('Push Image to Docker Hub') {
             when {
                 anyOf {
-                    branch "feature/*"
-                    branch "main"
-                    branch "dev"
+                    branch "origin/feature/*"
+                    branch "origin/main"
+                    branch "origin/dev"
                 }
             }
             steps {
