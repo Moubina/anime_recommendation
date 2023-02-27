@@ -9,11 +9,5 @@ services:
     volumes:
       - ./back:/app/back
       - ./templates:/app/templates
-    depends_on:
-      - models
-
-  models:
-    build:
-      context: ./models
-    volumes:
       - ./models:/app/models
+
