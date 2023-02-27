@@ -1,29 +1,10 @@
 pipeline {
     agent any
-    environment {
-        BRANCH_NAME = bat(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-    }
     stages {
-
-        stage('Push Image to Docker Hub') {
-            when {
-                anyOf {
-                    branch "origin/feature/*"
-                    branch "origin/main"
-                    branch "dev"
-                }
-            }
-            steps {
-                bat "echo '------------IMAGE TO DOCKERHUB------------------'"
-                bat 'docker login -u moubina -p Pharvine93!'
-                bat 'docker-compose build back'
-                bat 'docker-compose push back'                
-            }
-        }
         
         stage('---------------Check Branch------------------') {
             steps {
-                bat 'echo BRANCH_NAME=$BRANCH_NAME'
+                 bat 'printenv'
             }
         }
         
@@ -49,7 +30,7 @@ pipeline {
         }
         
         stage('Stress Test and Deploy from dev') {
-            when { branch 'dev' }
+            when { branch 'origin/dev' }
             steps {
                 bat "echo '------------DEPLOY DEV-------------------'"
                 bat "echo 'Stress Tests to do on dev branch and deployement'"
@@ -77,7 +58,21 @@ pipeline {
             }
         }
 
-        
+        stage('Push Image to Docker Hub') {
+            when {
+                anyOf {
+                    branch "origin/feature/*"
+                    branch "origin/main"
+                    branch "origin/dev"
+                }
+            }
+            steps {
+                bat "echo '------------IMAGE TO DOCKERHUB------------------'"
+                bat 'docker login -u moubina -p Pharvine93!'
+                bat 'docker-compose build back'
+                bat 'docker-compose push back'                
+            }
+        }
         
     }
 }
