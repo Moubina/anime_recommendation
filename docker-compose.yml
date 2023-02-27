@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  back:
+    build:
+      context: ./back
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./back:/app/back
+      - ./templates:/app/templates
+      - ./models:/app/models
+

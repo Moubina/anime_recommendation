@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request
 import joblib
 import pandas as pd
@@ -31,11 +32,11 @@ def submit():
     df = pd.DataFrame(data)
 
     # Créer mes vecteurs et categorical
-    synopsis_vector = joblib.load('./models/synopsis_vectorize.pkl')
-    title_vector = joblib.load('./models/title_vectorizer.pkl')
+    synopsis_vector = joblib.load('/app/models/synopsis_vectorize.pkl')
+    title_vector = joblib.load('/app/models/title_vectorizer.pkl')
 
     encoder = LabelEncoder()
-    encoder.classes_ = np.load('./models/categorical_encoded.npy')
+    encoder.classes_ = np.load('/app/models/categorical_encoded.npy')
 
     title_matrix = title_vector.transform(df['Title'])
     synopsis_matrix = synopsis_vector.transform(df['Synopsis'])
@@ -50,7 +51,7 @@ def submit():
 
     
     encoder = LabelEncoder()
-    encoder.classes_ = np.load('./models/categorical_encoded.npy')
+    encoder.classes_ = np.load('/app/models/categorical_encoded.npy')
 
     
     genre_encoded = encoder.transform(df['Genre'])
@@ -70,7 +71,7 @@ def submit():
     X = pd.concat([X_vector, X_categorical], axis=1)
 
     print(X)
-    model = joblib.load('./models/rf_model.pkl')
+    model = joblib.load('/app/models/rf_model.pkl')
 
     y_pred = model.predict(X)
     
@@ -80,4 +81,4 @@ def submit():
     
     return 'Informations soumises : {}'.format(y_pred)
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True,host='0.0.0.0', port='5001')
