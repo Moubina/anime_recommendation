@@ -3,18 +3,27 @@ pipeline {
     stages {
         
         stage('Build and Test Feature Branch') {
-            
             when { branch 'feature/*' }
-            bat "echo '------------BUIIIIIIILD FEATURE-------------------'"
             steps {
+                bat "echo '------------BUIIIIIILD FEATURE------------------'"
                 bat "echo 'Tests on feature branches'"
                 //bat "pip3 install -r requirements.txt"
                 //bat "python3 -m pytest tests TO DO"
             }
         }
+
+        stage('Push to dev') {
+            when { branch 'feature/*' }
+            steps {
+                bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
+                bat "echo 'Merging feature/ branch into dev'"
+                bat 'git checkout dev'
+                bat 'git merge feature/*'
+                bat "git push origin dev"
+            }
+        }
         
         stage('Stress Test and Deploy from dev') {
-            
             when { branch 'dev' }
             steps {
                 bat "echo '------------DEPLOY DEV-------------------'"
@@ -26,22 +35,11 @@ pipeline {
             }
         }
         
-        stage('Push to dev') {
-                
-            when { branch 'feature/*' }
-            steps {
-                bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
-                bat "echo 'Merging feature/ branch into dev'"
-                bat 'git checkout dev'
-                bat 'git merge feature/*'
-                bat "git push origin dev"
-            }
-        }
         
         stage('Push to Main') {
-                bat "echo '------------PUSH TO MAIN-------------------'"
             when { branch 'dev' }
             steps {
+                bat "echo '------------PUSH TO MAIN-------------------'"
                 bat "echo 'Asking the permission to merge'"
 
                 timeout(time: 5, unit: 'MINUTES') {
@@ -55,7 +53,7 @@ pipeline {
         }
 
         stage('Push Image to Docker Hub') {
-            
+            when { always() }
             steps {
                 bat "echo '------------IMAGE TO DOCKERHUB-------------------'"
                 bat 'docker login -u moubina -p Pharvine93!'
