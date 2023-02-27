@@ -9,14 +9,25 @@ pipeline {
                 //bat "python3 -m pytest tests/"
             }
         }
-        stage('Stress Test and Deploy fron dev') {
+        stage('Stress Test and Deploy from dev') {
             when { branch 'dev' }
             steps {
                 bat "echo 'Stress Tests on dev branch and deploy'"
                 //bat "pip3 install -r requirements.txt --user"
                 //bat "python3 stress_test.py"
-                bat "docker-compose up -d"
-                bat "docker-compose push"
+                bat 'docker-compose up --build'
+                
+            }
+        }
+
+        stage('Push to dev') {
+            when { branch 'feature/*' }
+            steps {
+                
+                bat "echo 'Merging feature/ branch into dev'"
+                bat 'git checkout dev'
+                bat 'git merge feature/*'
+                bat "git push origin dev"
             }
         }
         
@@ -34,5 +45,18 @@ pipeline {
                 bat "git push origin main"
             }
         }
+
+        stage('Push Image to Docker Hub') {
+            steps {
+                bat 'docker login -u moubina -p Pharvine93!'
+                bat 'docker-compose build back'
+                bat 'docker-compose push back'                
+            }
+        }
+        
     }
 }
+
+
+        
+
