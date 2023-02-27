@@ -53,7 +53,7 @@ pipeline {
         }
 
         stage('Push Image to Docker Hub') {
-            when { true }
+            when { branch '.*' }
             steps {
                 bat "echo '------------IMAGE TO DOCKERHUB------------------'"
                 bat 'docker login -u moubina -p Pharvine93!'
