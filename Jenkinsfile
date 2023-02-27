@@ -12,7 +12,7 @@ pipeline {
         stage('Stress Test and Deploy from dev') {
             when { branch 'dev' }
             steps {
-                bat "echo 'Stress Tests on dev branch and deploy'"
+                bat "echo 'Stress Tests to do on dev branch and deployement'"
                 //bat "pip3 install -r requirements.txt --user"
                 //bat "python3 stress_test.py"
                 bat 'docker-compose up --build'
