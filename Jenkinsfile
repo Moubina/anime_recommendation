@@ -4,7 +4,7 @@ pipeline {
         
         stage('---------------Check Branch------------------') {
             steps {
-                 bat 'printenv'
+                bat "echo 'Pulling... ' + env.GIT_BRANCH"
             }
         }
         
