@@ -6,7 +6,7 @@ pipeline {
             steps {
                 bat "echo 'Tests on feature branches'"
                 //bat "pip3 install -r requirements.txt"
-                //bat "python3 -m pytest tests/"
+                //bat "python3 -m pytest tests TO DO"
             }
         }
         stage('Stress Test and Deploy from dev') {
