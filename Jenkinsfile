@@ -1,7 +1,9 @@
 pipeline {
     agent any
     stages {
+        
         stage('Build and Test Feature Branch') {
+            bat "echo '------------BUIIIIIIILD FEATURE-------------------'"
             when { branch 'feature/*' }
             steps {
                 bat "echo 'Tests on feature branches'"
@@ -9,7 +11,9 @@ pipeline {
                 //bat "python3 -m pytest tests TO DO"
             }
         }
+        
         stage('Stress Test and Deploy from dev') {
+            bat "echo '------------DEPLOY DEV-------------------'"
             when { branch 'dev' }
             steps {
                 bat "echo 'Stress Tests to do on dev branch and deployement'"
@@ -19,8 +23,9 @@ pipeline {
                 
             }
         }
-
+        
         stage('Push to dev') {
+            bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
             when { branch 'feature/*' }
             steps {
                 
@@ -32,6 +37,7 @@ pipeline {
         }
         
         stage('Push to Main') {
+            bat "echo '------------PUSH TO MAIN-------------------'"
             when { branch 'dev' }
             steps {
                 bat "echo 'Asking the permission to merge'"
@@ -47,6 +53,7 @@ pipeline {
         }
 
         stage('Push Image to Docker Hub') {
+            bat "echo '------------IMAGE TO DOCKERHUB-------------------'"
             steps {
                 bat 'docker login -u moubina -p Pharvine93!'
                 bat 'docker-compose build back'
