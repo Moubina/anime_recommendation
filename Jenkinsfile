@@ -24,7 +24,7 @@ pipeline {
         }
         
         stage('Stress Test and Deploy from dev') {
-            when { branch 'dev' }
+            when { branch '*/dev' }
             steps {
                 bat "echo '------------DEPLOY DEV-------------------'"
                 bat "echo 'Stress Tests to do on dev branch and deployement'"
