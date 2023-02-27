@@ -3,7 +3,6 @@ pipeline {
     stages {
         
         stage('Build and Test Feature Branch') {
-            
             steps {
                 bat "echo '------------BUIIIIIILD FEATURE------------------'"
                 bat "echo 'Tests on feature branches'"
@@ -12,11 +11,10 @@ pipeline {
             }
         }
 
-        stage('Push to dev') {
-            
+        stage('Push to dev from features') {
             steps {
                 bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
-                bat "echo 'Merging feature/ branch into dev'"
+                bat "echo 'Merging feature branch into dev'"
                 bat 'git checkout dev'
                 bat 'git merge feature/*'
                 bat "git push origin dev"
