@@ -3,8 +3,9 @@ pipeline {
     stages {
         
         stage('Build and Test Feature Branch') {
-            bat "echo '------------BUIIIIIIILD FEATURE-------------------'"
+            
             when { branch 'feature/*' }
+            bat "echo '------------BUIIIIIIILD FEATURE-------------------'"
             steps {
                 bat "echo 'Tests on feature branches'"
                 //bat "pip3 install -r requirements.txt"
@@ -13,9 +14,10 @@ pipeline {
         }
         
         stage('Stress Test and Deploy from dev') {
-            bat "echo '------------DEPLOY DEV-------------------'"
+            
             when { branch 'dev' }
             steps {
+                bat "echo '------------DEPLOY DEV-------------------'"
                 bat "echo 'Stress Tests to do on dev branch and deployement'"
                 //bat "pip3 install -r requirements.txt --user"
                 //bat "python3 stress_test.py"
@@ -25,10 +27,10 @@ pipeline {
         }
         
         stage('Push to dev') {
-            bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
+                
             when { branch 'feature/*' }
             steps {
-                
+                bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
                 bat "echo 'Merging feature/ branch into dev'"
                 bat 'git checkout dev'
                 bat 'git merge feature/*'
@@ -37,7 +39,7 @@ pipeline {
         }
         
         stage('Push to Main') {
-            bat "echo '------------PUSH TO MAIN-------------------'"
+                bat "echo '------------PUSH TO MAIN-------------------'"
             when { branch 'dev' }
             steps {
                 bat "echo 'Asking the permission to merge'"
@@ -53,8 +55,9 @@ pipeline {
         }
 
         stage('Push Image to Docker Hub') {
-            bat "echo '------------IMAGE TO DOCKERHUB-------------------'"
+            
             steps {
+                bat "echo '------------IMAGE TO DOCKERHUB-------------------'"
                 bat 'docker login -u moubina -p Pharvine93!'
                 bat 'docker-compose build back'
                 bat 'docker-compose push back'                
