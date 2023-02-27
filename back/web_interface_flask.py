@@ -5,13 +5,11 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 
-app = Flask(__name__, template_folder=os.path.abspath('templates'))
-
+app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('web.html')
-
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -83,4 +81,4 @@ def submit():
     
     return 'Informations soumises : {}'.format(y_pred)
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0', port=80)
+    app.run(debug=True,host='0.0.0.0', port='5000')

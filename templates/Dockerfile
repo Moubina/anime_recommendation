@@ -1,9 +1,19 @@
-FROM nginx
+FROM python:3.9-slim-buster
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Définir le répertoire de travail
+WORKDIR /app
 
-COPY ./web.html /usr/share/nginx/html
+# Copier le fichier requirements.txt dans le répertoire de travail
+COPY templates/requirements.txt .
 
-EXPOSE 80
+# Installer les dépendances depuis le fichier requirements.txt
+RUN pip install -r requirements.txt
 
-CMD ["nginx", "-g", "daemon off;"]
+# Copier le fichier HTML dans le dossier templates
+COPY templates/web.html templates/
+
+# Définir le répertoire de travail pour les fichiers Python
+WORKDIR /app/back
+
+# Commande de démarrage
+CMD ["python", "web_interface_flask.py"]

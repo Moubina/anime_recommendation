@@ -6,7 +6,7 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-EXPOSE 5000
+EXPOSE 6000
 
 COPY categorical_encoded.npy .
 COPY genre_enco.pkl .

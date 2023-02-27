@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   backend:
     build:
@@ -7,25 +8,23 @@ services:
     depends_on:
       - model
     ports:
-      - published: 8888
-        target: 8888
+      - published: 5000
+        target: 5000
 
   frontend:
     build:
-      context: ./templates
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./templates/Dockerfile
     depends_on:
       - backend
     ports:
       - published: 80
         target: 80
-    volumes:
-      - ./templates:/usr/share/nginx/html
-      - ./config:/etc/nginx/conf.d:ro
+    command: ["python", "/app/back/web_interface_flask.py"]
 
   model:
     build:
       context: ./models
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "6000:6000"
