@@ -53,18 +53,11 @@ pipeline {
         }
 
         stage('Push Image to Docker Hub') {
-            when {
-                anyOf {
-                    branch "origin/feature/*"
-                    branch "origin/main"
-                    branch "origin/dev"
-                }
-            }
-            steps {
+            always {
                 bat "echo '------------IMAGE TO DOCKERHUB------------------'"
                 bat 'docker login -u moubina -p Pharvine93!'
                 bat 'docker-compose build back'
-                bat 'docker-compose push back'                
+                bat 'docker-compose push back'
             }
         }
         
