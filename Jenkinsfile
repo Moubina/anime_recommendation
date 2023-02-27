@@ -5,7 +5,7 @@ pipeline {
         stage('Build and Test Feature Branch') {
             when { branch 'feature/*' }
             steps {
-                bat "echo '------------BUIIIIIIILD FEATURE--------------------'"
+                bat "echo '------------BUIIIIIIILD FEATURE------------------'"
                 bat "echo 'Tests on feature branches'"
                 //bat "pip3 install -r requirements.txt"
                 //bat "python3 -m pytest tests TO DO"
