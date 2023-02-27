@@ -20,12 +20,13 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - /monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
     image: grafana/grafana:latest
     volumes:
-      - ./monitoring/grafana/data:/var/lib/grafana
+      - ./defaults.ini:/usr/share/grafana/conf/defaults.ini
+      - ./grafana.ini:/usr/share/grafana/grafana.ini
     ports:
-      - "7000:7000"
+      - "1000:1000"
     
