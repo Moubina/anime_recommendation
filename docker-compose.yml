@@ -1,22 +1,31 @@
 version: '3'
 services:
-  model:
-    build:
-      context: ./models
-      dockerfile: Dockerfile
   backend:
     build:
       context: ./back
       dockerfile: Dockerfile
-    ports:
-      - "8888:8888"
     depends_on:
       - model
+    ports:
+      - published: 8888
+        target: 8888
+
   frontend:
     build:
       context: ./templates
       dockerfile: Dockerfile
-    ports:
-      - "80:80"
     depends_on:
       - backend
+    ports:
+      - published: 80
+        target: 80
+    volumes:
+      - ./templates:/usr/share/nginx/html
+      - ./config:/etc/nginx/conf.d:ro
+
+  model:
+    build:
+      context: ./models
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"

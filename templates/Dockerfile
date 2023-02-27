@@ -1,10 +1,9 @@
-FROM python:3.8
+FROM nginx
 
-WORKDIR /app
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./web.html /usr/share/nginx/html
 
-COPY . .
+EXPOSE 80
 
-CMD ["python", "web_interface_flask.py"]
+CMD ["nginx", "-g", "daemon off;"]
