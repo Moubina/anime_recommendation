@@ -17,7 +17,7 @@ pipeline {
                 bat "echo 'Merging feature branch into dev'"
                 bat 'git checkout dev'
                 bat 'git pull origin dev'
-                bat "git merge $(git for-each-ref refs/heads/feature/* --format='%(refname:short)')" 
+                bat "git merge \$(git for-each-ref refs/heads/feature/* --format='%(refname:short)')" 
                 bat "git push origin dev"
             }
         }
