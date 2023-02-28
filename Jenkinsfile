@@ -17,7 +17,7 @@ pipeline {
                 bat "echo 'Merging feature branch into dev'"
                 bat 'git checkout dev'
                 bat 'git pull origin dev'
-                bat "git merge $(git branch --list 'feature/*' | cut -c3- | tr '\n' ' ')"
+                bat "git merge origin/feature/*"
                 bat "git push origin dev"
             }
         }
