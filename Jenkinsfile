@@ -6,21 +6,23 @@ pipeline {
             steps {
                 bat "echo '------------BUIIIIIILD FEATURE------------------'"
                 bat "echo 'Tests on feature branches'"
-                //bat "pip3 install -r requirements.txt"
+                //bat "pip3 install -r requirements.tt"
                 //bat "python3 -m pytest tests TO DO"
             }
         }
 
         stage('Push to dev from features') {
             steps {
-                bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
+                bat "echo '--------------PUSH TO DEV FRON FEATUUUURE-------------------'"
                 bat "echo 'Merging feature branch into dev'"
                 bat 'git checkout dev'
                 bat 'git pull origin dev'
-                bat 'git merge ${GIT_BRANCH}'
+                bat 'git merge feature/pipeline'
                 bat "git push origin dev"
             }
         }
+
+        
         
         stage('Stress Test and Deploy from dev') {
             
@@ -41,7 +43,7 @@ pipeline {
                 bat "echo '------------PUSH TO MAIN------------------'"
                 bat "echo 'Asking the permission to merge'"
 
-                timeout(time: 1, unit: 'HOUR') {
+                timeout(time: 1, unit: TimeUnit.HOURS) {
                     input message: 'Do you want to merge dev to main?', ok: 'Promote'
                 }
                 bat "echo 'Merging dev branch into main'"
