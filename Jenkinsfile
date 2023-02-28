@@ -17,7 +17,7 @@ pipeline {
                 bat "echo 'Merging feature branch into dev'"
                 bat 'git checkout dev'
                 bat 'git pull origin dev'
-                bat 'git merge ${GIT_BRANCH}'
+                bat 'git merge ${env.GIT_BRANCH}'
                 bat "git push origin dev"
             }
         }
