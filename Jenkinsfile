@@ -38,7 +38,7 @@ pipeline {
         stage('Push to Main') {
             
             steps {
-                bat "echo '------------PUSH TO MAIN-------------------'"
+                bat "echo '------------PUSH TO MAIN------------------'"
                 bat "echo 'Asking the permission to merge'"
 
                 timeout(time: 1, unit: 'HOUR') {
