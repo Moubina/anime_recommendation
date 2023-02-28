@@ -13,17 +13,15 @@ pipeline {
 
         stage('Push to dev from features') {
             steps {
-                bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
-                bat "echo 'Merging feature branch into dev'"
-                script {
-                    def feature_branch = bat(returnStdout: true, script: 'echo ${GIT_BRANCH} | cut -d / -f 2-').trim()
-                    bat 'git checkout dev'
-                    bat 'git pull origin dev'
-                    bat "git merge ${feature_branch}"
-                    bat "git push origin dev"
-                }
+                bat "echo '------------PUSH TO DEV FROM FEATURE BRANCH-------------------'"
+                bat "echo 'Merging feature branches into dev'"
+                bat 'git checkout dev'
+                bat 'git pull origin dev'
+                bat 'for branch in `git branch -r --list origin/feature/*` ; do git merge --no-edit $branch ; done'
+                bat "git push origin dev"
             }
         }
+
         
         stage('Stress Test and Deploy from dev') {
             
