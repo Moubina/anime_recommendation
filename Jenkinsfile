@@ -17,8 +17,8 @@ pipeline {
                 bat "echo 'Merging feature branches into dev'"
                 bat 'git checkout dev'
                 bat 'git pull origin dev'
-                bat 'for branch in `git branch -r --list origin/feature/*` ; do git merge --no-edit $branch ; done'
-                bat "git push origin dev"
+                //bat 'for branch in `git branch -r --list origin/feature/*` ; do git merge --no-edit $branch ; done'
+                //bat "git push origin dev"
             }
         }
 
@@ -47,8 +47,8 @@ pipeline {
                 }
                 bat "echo 'Merging dev branch into main'"
                 bat 'git checkout main'
-                bat 'git merge dev'
-                bat "git push origin main"
+                //bat 'git merge dev'
+                //bat "git push origin main"
             }
         }
 
