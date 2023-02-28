@@ -4,14 +4,19 @@ import joblib
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 @app.route('/')
 def home():
     return render_template('web.html')
 
+metrics.info("app_info", "App Info, test", version="1.0.0")
+
 @app.route('/submit', methods=['POST'])
+@metrics.counter('submit_counter', 'Number of form submissions')
 def submit():
     title = request.form.get('title')
     synopsis = request.form.get('synopsis')
@@ -80,5 +85,6 @@ def submit():
     print(request.form)
     
     return 'Informations soumises : {}'.format(y_pred)
+
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0', port='5001')
