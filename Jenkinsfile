@@ -2,14 +2,12 @@ pipeline {
     agent any
     stages {
         
-        stage('Build and Test Feature Branch') {
+        stage('Build') {
             steps {
-                bat "echo '------------BUIIIIIILD FEATURE------------------'"
-                bat "echo 'Tests on feature branches'"
-                //bat "pip3 install -r requirements.tt"
-                //bat "python3 -m pytest tests TO DO"
                 bat 'git config --global user.email "pharvine.moubina@gmail.com"'
                 bat 'git config --global user.name "Moubina"'
+                bat 'docker-compose up -d --build'
+                
             }
         }
 
@@ -22,20 +20,6 @@ pipeline {
                 bat 'git pull origin dev'
                 bat 'git merge feature/pipeline'
                 bat "git push origin dev"
-            }
-        }
-
-        
-        
-        stage('Stress Test and Deploy from dev') {
-            
-            steps {
-                bat "echo '------------DEPLOY DEV-------------------'"
-                bat "echo 'Stress Tests to do on dev branch and deployement'"
-                //bat "pip3 install -r requirements.txt --user"
-                //bat "python3 stress_test.py"
-                bat 'docker-compose up --build'
-                
             }
         }
         
