@@ -13,6 +13,8 @@ metrics = PrometheusMetrics(app)
 def home():
     return render_template('web.html')
 
+metrics.info("app_info", "App Info, test", version="1.0.0")
+
 @app.route('/submit', methods=['POST'])
 @metrics.counter('submit_counter', 'Number of form submissions')
 def submit():
