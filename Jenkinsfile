@@ -13,7 +13,7 @@ pipeline {
 
         stage('Push to dev from features') {
             steps {
-                bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
+                bat "echo '--------------PUSH TO DEV FRON FEATUUUURE-------------------'"
                 bat "echo 'Merging feature branch into dev'"
                 bat 'git checkout dev'
                 bat 'git pull origin dev'
