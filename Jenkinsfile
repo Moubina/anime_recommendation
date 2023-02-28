@@ -13,15 +13,14 @@ pipeline {
 
         stage('Push to dev from features') {
             steps {
-                bat "echo '------------PUSH TO DEV FROM FEATURE BRANCH-------------------'"
-                bat "echo 'Merging feature branches into dev'"
+                bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
+                bat "echo 'Merging feature branch into dev'"
                 bat 'git checkout dev'
                 bat 'git pull origin dev'
-                //bat 'for branch in `git branch -r --list origin/feature/*` ; do git merge --no-edit $branch ; done'
-                //bat "git push origin dev"
+                bat 'git merge ${GIT_BRANCH}'
+                bat "git push origin dev"
             }
         }
-
         
         stage('Stress Test and Deploy from dev') {
             
@@ -47,8 +46,8 @@ pipeline {
                 }
                 bat "echo 'Merging dev branch into main'"
                 bat 'git checkout main'
-                //bat 'git merge dev'
-                //bat "git push origin main"
+                bat 'git merge dev'
+                bat "git push origin main"
             }
         }
 
