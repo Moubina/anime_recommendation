@@ -16,7 +16,8 @@ pipeline {
                 bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
                 bat "echo 'Merging feature branch into dev'"
                 bat 'git checkout dev'
-                bat 'git merge feature/*'
+                bat 'git pull origin dev'
+                bat 'git merge ${GIT_BRANCH}'
                 bat "git push origin dev"
             }
         }
@@ -40,7 +41,7 @@ pipeline {
                 bat "echo '------------PUSH TO MAIN-------------------'"
                 bat "echo 'Asking the permission to merge'"
 
-                timeout(time: 5, unit: 'MINUTES') {
+                timeout(time: 1, unit: 'HOUR') {
                     input message: 'Do you want to merge dev to main?', ok: 'Promote'
                 }
                 bat "echo 'Merging dev branch into main'"
