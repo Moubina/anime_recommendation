@@ -25,13 +25,13 @@ pipeline {
         
         
         stage('Push to Main') {
-            
+            input {
+                message 'Do you want to merge dev to main?' 
+                ok 'Promote'
+                }
             steps {
                 bat "echo '------------PUSH TO MAIN------------------'"
-                bat "echo 'Asking the permission to merge'"
-                
-                input {message 'Do you want to merge dev to main?' ok 'Promote'}
-                
+                bat "echo 'Asking the permission to merge'"                
                 bat "echo 'Merging dev branch into main'"
                 bat 'git checkout main'
                 bat 'git merge dev'
