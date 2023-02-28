@@ -41,7 +41,7 @@ pipeline {
                 bat "echo '------------PUSH TO MAIN------------------'"
                 bat "echo 'Asking the permission to merge'"
 
-                timeout(time: 1, unit: 'HOUR') {
+                timeout(time: 1, unit: TimeUnit.HOURS) {
                     input message: 'Do you want to merge dev to main?', ok: 'Promote'
                 }
                 bat "echo 'Merging dev branch into main'"
