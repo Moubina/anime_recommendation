@@ -15,10 +15,13 @@ pipeline {
             steps {
                 bat "echo '------------PUSH TO DEV FRON FEATUUUURE-------------------'"
                 bat "echo 'Merging feature branch into dev'"
-                bat 'git checkout dev'
-                bat 'git pull origin dev'
-                bat "git merge $(git branch --list 'feature/*' | cut -c3- | tr '\n' ' ')"
-                bat "git push origin dev"
+                script {
+                    def feature_branch = bat(returnStdout: true, script: 'echo ${GIT_BRANCH} | cut -d / -f 2-').trim()
+                    bat 'git checkout dev'
+                    bat 'git pull origin dev'
+                    bat "git merge ${feature_branch}"
+                    bat "git push origin dev"
+                }
             }
         }
         
