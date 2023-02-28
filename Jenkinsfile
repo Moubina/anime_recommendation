@@ -8,6 +8,8 @@ pipeline {
                 bat "echo 'Tests on feature branches'"
                 //bat "pip3 install -r requirements.tt"
                 //bat "python3 -m pytest tests TO DO"
+                bat 'git config --global user.email "pharvine.moubina@gmail.com"'
+                bat 'git config --global user.name "Moubina"'
             }
         }
 
